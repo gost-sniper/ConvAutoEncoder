@@ -10,7 +10,7 @@ The data is stored in the `data` folder as following:
 |  /data
 |  |  /blurry_images
 |  |  |   (1).jpg
-|  |  |  (2).jpg
+|  |  |   (2).jpg
 |  |  |   (3).jpg
 |  |  |   .
 |  |  |   .
@@ -59,4 +59,4 @@ python main.py --epoch 44 --lr 0.001 --normal_data <PATH_NORMAL_IMAGE> --blurry_
 ```
 
 ## References
-the paper implemented [gyro](https://arxiv.org/abs/1810.00986 "The best search engine for privacy").
+The implemented paper [gyro](https://arxiv.org/abs/1810.00986 "Gyroscope-Aided Motion Deblurring with Deep Networks").
