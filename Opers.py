@@ -142,7 +142,6 @@ def test(model, validation_loader, criterion, device):
     with torch.no_grad():
         model.eval()
         test_loss = 0
-        correct = 0
         for data in validation_loader:
             blurry, normal = data['blurry'].to(device), data['normal'].to(device)
             output = model(blurry)
