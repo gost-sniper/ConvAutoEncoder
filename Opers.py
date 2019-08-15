@@ -129,9 +129,10 @@ def train(model, epoch, train_loader, criterion, optimizer, device):
         train_loss += loss.item()
         loss.backward()
         optimizer.step()
-        if batch_idx % 100 == 0:
+
+        if batch_idx % 25 == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
+                epoch, batch_idx * len(blurry), len(train_loader),
                 100. * batch_idx / len(train_loader), loss.item()))
 
     return train_loss

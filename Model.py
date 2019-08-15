@@ -41,10 +41,18 @@ class ConvAutoencoder(nn.Module):
         return y - out
 
     def _initialize_weights(self):
+<<<<<<< HEAD
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 init.orthogonal_(m.weight)
                 print('init weight')
+=======
+        print('======> init weight')
+
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                init.orthogonal_(m.weight)
+>>>>>>> 6614a0609a6b48e0138486704548b0549f1917bc
                 if m.bias is not None:
                     init.constant_(m.bias, 0)
             elif isinstance(m, nn.BatchNorm2d):

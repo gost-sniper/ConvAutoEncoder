@@ -9,7 +9,8 @@ from torchvision import transforms
 
 import DataSet
 from Model import ConvAutoencoder
-from Opers import findLastCheckpoint, log, prepareLoaders
+
+from Opers import findLastCheckpoint, log, prepareLoaders, test, train
 
 parser = argparse.ArgumentParser(description='PyTorch ConAutoEncoder')
 parser.add_argument('--model', default='ConAutoEncoder', type=str, help='choose a type of model')
@@ -30,7 +31,6 @@ save_dir = os.path.join('models', args.model)
 if not os.path.exists(save_dir):
     os.mkdir(save_dir)
 
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # initialize the NN
 model = ConvAutoencoder().to(device)
@@ -49,6 +49,16 @@ for epoch in range(1, n_epochs + 1):
     # monitor training loss
     train_loss = 0.0
 
+initial_epoch = findLastCheckpoint(save_dir)
+
+if initial_epoch > 0:
+    print('resuming by loading epoch %03d' % initial_epoch)
+    model = torch.load(os.path.join(save_dir, 'model_%03d.pth' % initial_epoch))
+
+for epoch in range(initial_epoch + 1, n_epochs + 1):
+    # monitor training loss
+    train_loss = 0.0
+
     start_time = time.time()
 
     # train the model #
@@ -57,7 +67,7 @@ for epoch in range(1, n_epochs + 1):
     elapsed_time = time.time() - start_time
     # print avg training statistics
     train_loss = train_loss / len(train_loader)
-    
+
     log('epoch = %4d , loss = %4.4f , time = %4.2f s' % (epoch, train_loss, elapsed_time))
 
     torch.save(model, os.path.join(save_dir, 'model_%03d.pth' % epoch))
@@ -65,7 +75,4 @@ for epoch in range(1, n_epochs + 1):
     # changing the learning rate for the next epoch
     scheduler.step()
 
-    test(model, validation_loader, criterion)
-
-
-
+    test(model, validation_loader, criterion, device)
