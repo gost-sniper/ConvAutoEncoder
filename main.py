@@ -13,7 +13,6 @@ from Model import ConvAutoencoder
 from Opers import findLastCheckpoint, log, prepareLoaders, test, train
 
 parser = argparse.ArgumentParser(description='PyTorch ConAutoEncoder')
-parser.add_argument('--model', default='ConAutoEncoder', type=str, help='choose a type of model')
 parser.add_argument('--batch_size', default=2, type=int, help='batch size')
 parser.add_argument('--normal_data', default='data/normal_images', type=str, help='path of train data')
 parser.add_argument('--blurry_data', default='data/blurry_images', type=str, help='path of train data')
