@@ -52,11 +52,32 @@ optional arguments:
   --lr LR               initial learning rate for Adam
 ```
 
-You can specify the paths if stored elsewhere. this is an example of
+You can use the arguments `--normal_data` and `--blurry_data` if stored elsewhere :
 
 ```
 python main.py --epoch 44 --lr 0.001 --normal_data <PATH_NORMAL_IMAGE> --blurry_data <PATH_BLURRY_IMAGE>
-```
+``` 
+## Using the model 
 
+after we done with the trainning you can use the model as the following :
+```python
+import os
+
+import torch
+from torchvision import transforms
+
+import DataSet
+from Opers import findLastCheckpoint, prepareLoaders
+
+save_dir = os.path.join('models', 'ConAutoEncoder')
+
+Last_checkpoint = findLastCheckpoint(save_dir)
+
+model_location = os.path.join(save_dir, 'model_%03d.pth' % Last_checkpoint)
+
+model = torch.load(model_location)
+
+
+```
 ## References
 The implemented paper [gyro](https://arxiv.org/abs/1810.00986 "Gyroscope-Aided Motion Deblurring with Deep Networks").
