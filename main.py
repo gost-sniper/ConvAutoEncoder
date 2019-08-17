@@ -21,15 +21,21 @@ parser.add_argument('--lr', default=1e-3, type=float, help='initial learning rat
 args = parser.parse_args()
 
 data_transform = transforms.Compose([transforms.ToTensor()])
+
+# The whole dataset 
 dataset = DataSet.imageDataset(args.normal_data, args.blurry_data, transform=data_transform)
 
+# Spliting the dataset
 train_loader, validation_loader = prepareLoaders(dataset, shuffle_dataset=True, batch_size=args.batch_size, )
 
+# Saving directory
 save_dir = os.path.join('models', args.model)
 
+# Create the saving directory if not exists
 if not os.path.exists(save_dir):
     os.mkdir(save_dir)
 
+# specifying the processing unit 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # initialize the NN
@@ -47,10 +53,6 @@ scheduler = StepLR(optimizer, step_size=2, gamma=0.1)
 # number of epochs to train the model
 n_epochs = args.epoch
 
-for epoch in range(1, n_epochs + 1):
-    # monitor training loss
-    train_loss = 0.0
-
 # check if there's a checkpoint
 initial_epoch = findLastCheckpoint(save_dir)
 
@@ -62,20 +64,26 @@ for epoch in range(initial_epoch + 1, n_epochs + 1):
     # monitor training loss
     train_loss = 0.0
 
+    # Starting time
     start_time = time.time()
 
     # train the model #
     train_loss = train(model, epoch, train_loader, criterion, optimizer, device)
 
+    # Calculating the training time 
     elapsed_time = time.time() - start_time
+
     # print avg training statistics
     train_loss = train_loss / len(train_loader)
 
+    # Printing some relevant logs
     log('epoch = %4d , loss = %4.4f , time = %4.2f s' % (epoch, train_loss, elapsed_time))
 
+    # Saving the model
     torch.save(model, os.path.join(save_dir, 'model_%03d.pth' % epoch))
 
     # changing the learning rate for the next epoch
     scheduler.step()
 
+    # Evaluate the model on the validation-set
     test(model, validation_loader, criterion, device)
