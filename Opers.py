@@ -181,7 +181,7 @@ def train(model, epoch, train_loader, criterion, optimizer, device):
 
 
 def test(model, validation_loader, criterion, device):
-        """evaluate the current state of the model
+    """evaluate the current state of the model
 
     Args:
         model (torch.nn.Module): the model you want to to train
