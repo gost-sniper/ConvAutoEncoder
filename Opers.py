@@ -11,6 +11,13 @@ from torch.utils.data.sampler import SubsetRandomSampler
 
 
 class Rescale(object):
+    """Rescale the image in a sample to a given size.
+
+    Args:
+        output_size (tuple or int): Desired output size. If tuple, output is
+            matched to output_size. If int, smaller of image edges is matched
+            to output_size keeping aspect ratio the same.
+    """
 
     def __init__(self, output_size):
         assert isinstance(output_size, (int, tuple))
@@ -37,6 +44,12 @@ class Rescale(object):
 
 
 class RandomCrop(object):
+    """Crop randomly the image in a sample.
+
+    Args:
+        output_size (tuple or int): Desired output size. If int, square crop
+            is made.
+    """
 
     def __init__(self, output_size):
         assert isinstance(output_size, (int, tuple))
@@ -78,6 +91,12 @@ class ToTensor(object):
 
 
 def findLastCheckpoint(save_dir):
+    """Search for the latest checkpoint
+        
+    Args:
+        save_dir (str): path to the directory where model's
+            checkpoints are saved
+    """
     file_list = glob.glob(os.path.join(save_dir, 'model_*.pth'))
     if file_list:
         epochs_exist = []
@@ -91,10 +110,22 @@ def findLastCheckpoint(save_dir):
 
 
 def log(*args, **kwargs):
+    """Print important logs"""
     print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S:"), *args, **kwargs)
 
 
 def prepareLoaders(dataset, shuffle_dataset=True, batch_size=4, random_seed=42, validation_split=.15):
+    """Prepare training and validation loaders
+
+    Args:
+        dataset (torch.utils.data.Dataset object): the whole dataset that we want 
+            to split into training-set and validation-set.
+        shuffle_dataset (boolean) : specify whether we want shuffle the 
+            data before spliting.(Default True)
+        random_seed (int) : seed for the random shuffle. (Default 42)
+        validation_split (float): the split ratio fortraining-set and 
+            validation-set it should be between 0 and 1. (Default 0.15) 
+    """
     dataset_size = len(dataset)
     indices = list(range(dataset_size))
     split = int(np.floor(validation_split * dataset_size))
@@ -118,6 +149,17 @@ def prepareLoaders(dataset, shuffle_dataset=True, batch_size=4, random_seed=42, 
 
 
 def train(model, epoch, train_loader, criterion, optimizer, device):
+    """One pass through the trainning set
+
+    Args:
+        model (torch.nn.Module): the model you want to to train
+        epoch (int): the number of the current epoch
+        train_loader (torch.utils.data.DataLoader): training-set dataloader
+        criterion (callable): the loss function used to evaluate the model
+        optimizer (callable): the optimizer used to minimise the loss function
+        device (torch.device): device used for calculations 'CPU' or 'GPU'
+
+    """
     train_loss = .0
     model.train()
     for batch_idx, data in enumerate(train_loader):
@@ -139,6 +181,15 @@ def train(model, epoch, train_loader, criterion, optimizer, device):
 
 
 def test(model, validation_loader, criterion, device):
+        """evaluate the current state of the model
+
+    Args:
+        model (torch.nn.Module): the model you want to to train
+        validation_loader (torch.utils.data.DataLoader): validation-set dataloader
+        criterion (callable): the loss function used to evaluate the model
+        device (torch.device): device used for calculations 'CPU' or 'GPU'
+
+    """
     with torch.no_grad():
         model.eval()
         test_loss = 0

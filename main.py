@@ -8,7 +8,7 @@ from torch.optim.lr_scheduler import StepLR
 from torchvision import transforms
 
 import DataSet
-from Model import ConvAutoencoder
+from gyroModel import GyroModel
 
 from Opers import findLastCheckpoint, log, prepareLoaders, test, train
 
@@ -31,16 +31,19 @@ if not os.path.exists(save_dir):
     os.mkdir(save_dir)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 # initialize the NN
-model = ConvAutoencoder().to(device)
+model = GyroModel().to(device)
+
 # specify loss function
 criterion = nn.MSELoss()
 
-# specify loss function
+# specify the optimizer
 optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
 # setting up a learning rate scheduler 
 scheduler = StepLR(optimizer, step_size=2, gamma=0.1)
+
 # number of epochs to train the model
 n_epochs = args.epoch
 
@@ -48,6 +51,7 @@ for epoch in range(1, n_epochs + 1):
     # monitor training loss
     train_loss = 0.0
 
+# check if there's a checkpoint
 initial_epoch = findLastCheckpoint(save_dir)
 
 if initial_epoch > 0:

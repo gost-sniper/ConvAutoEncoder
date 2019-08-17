@@ -89,7 +89,7 @@ class GyroModel(nn.Module):
                                 kernel_size=kernel_size, padding=padding, bias=False, stride=1)
 
         # ------------------------------------------------------ #
-        #                     64 channels                       #
+        #                     64 channels                        #
         # ------------------------------------------------------ #
         self.upconv4 = nn.ConvTranspose2d(in_channels=128, out_channels=64, kernel_size=2, stride=2, padding=1)
 
@@ -99,7 +99,7 @@ class GyroModel(nn.Module):
                                 kernel_size=kernel_size, padding=padding, bias=False, stride=1)
 
         # ------------------------------------------------------ #
-        #                     3 channels                       #
+        #                     3 channels                         #
         # ------------------------------------------------------ #
         self.conv20 = nn.Conv2d(in_channels=64, out_channels=3,
                                 kernel_size=1, padding=0, bias=False)
