@@ -55,7 +55,7 @@ optional arguments:
 You can use the arguments `--normal_data` and `--blurry_data` if stored elsewhere :
 
 ```
-python main.py --epoch 44 --lr 0.001 --normal_data <PATH_NORMAL_IMAGE> --blurry_data <PATH_BLURRY_IMAGE>
+python main.py --normal_data <PATH_NORMAL_IMAGE> --blurry_data <PATH_BLURRY_IMAGE>
 ``` 
 ## Using the model 
 
