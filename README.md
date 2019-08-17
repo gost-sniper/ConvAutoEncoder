@@ -69,7 +69,7 @@ from torchvision import transforms
 import DataSet
 from Opers import findLastCheckpoint, prepareLoaders
 
-save_dir = os.path.join('models', 'ConAutoEncoder')
+save_dir = os.path.join('models', 'ConvAutoEncoder')
 
 Last_checkpoint = findLastCheckpoint(save_dir)
 
