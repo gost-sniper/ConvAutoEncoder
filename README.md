@@ -77,6 +77,10 @@ model_location = os.path.join(save_dir, 'model_%03d.pth' % Last_checkpoint)
 
 model = torch.load(model_location)
 
+with torch.no_grad():
+    model.eval()
+    ...     # you can call the model for deblurring 
+
 
 ```
 ## References
