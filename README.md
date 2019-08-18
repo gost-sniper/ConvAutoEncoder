@@ -41,11 +41,6 @@ ConvAutoEncoder
 ├── main.py
 ├── models
 │   └── ConvAutoEncoder
-│       ├── model_001.pth
-│       ├── model_002.pth
-│       ├── model_003.pth
-│       ├── model_004.pth
-│       └── model_005.pth
 ├── Opers.py
 ├── README.md
 └── requirements.txt
