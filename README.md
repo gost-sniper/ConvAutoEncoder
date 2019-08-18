@@ -24,25 +24,32 @@ pip install -r requirements.txt
 
 The data is stored in the `data` folder as following:
 ```
-/ConvAutoEncoder
-|  /data
-|  |  /blurry_images
-|  |  |   (1).jpg
-|  |  |   (2).jpg
-|  |  |   (3).jpg
-|  |  |   .
-|  |  |   .
-|  |  /normal_images
-|  |  |   (1).jpg
-|  |  |   (2).jpg
-|  |  |   (3).jpg
-|  |  |   .
-|  |  |   .
-|  /models
-|  DataSet.py
-|  gyroModel.py
-|  main.py
-|  Opers.py
+ConvAutoEncoder
+├── data
+│   ├── blurry_images
+│   │   ├── (1).jpg
+│   │   ├── (2).jpg
+│   │   ├── (3).jpg
+│   │   └── (4).jpg
+│   └── normal_images
+│       ├── (1).jpg
+│       ├── (2).jpg
+│       ├── (3).jpg
+│       └── (4).jpg
+├── DataSet.py
+├── gyroModel.py
+├── main.py
+├── models
+│   └── ConvAutoEncoder
+│       ├── model_001.pth
+│       ├── model_002.pth
+│       ├── model_003.pth
+│       ├── model_004.pth
+│       └── model_005.pth
+├── Opers.py
+├── README.md
+└── requirements.txt
+
   
 ```
 ## Training 
