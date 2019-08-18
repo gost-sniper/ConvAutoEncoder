@@ -2,6 +2,24 @@
 
 This is an implementation of a paper 'Gyroscope-Aided Motion Deblurring with Deep Networks' 
 
+## Installation
+
+1 - you start by clonning this repo:
+```
+git clone https://github.com/gost-sniper/ConvAutoEncoder
+cd ConvAutoEncoder
+```
+2 - create a virtual environment :
+```
+python -m venv venv/
+source venv/bin/activate  # for linux/macos
+or 
+venv/Scripts/activate  # for windows
+```
+3 - then installing dependencies :
+```
+pip install -r requirements.txt
+```
 ## Data 
 
 The data is stored in the `data` folder as following:
